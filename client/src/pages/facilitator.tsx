@@ -36,6 +36,7 @@ export default function Facilitator() {
       ? "you"
       : gameState.players.find((p) => p.id === gameState.controllerId)?.name ?? "no one yet";
   const nameOf = (cardId: string) => CARD_BY_ID[cardId]?.name ?? cardId;
+  const descOf = (cardId: string) => CARD_BY_ID[cardId]?.description ?? "";
   const cardsIn = (g: Group) => gameState.assignments.filter((a) => a.group === g);
   const nextCard = CARDS.find((c) => !gameState.assignments.some((a) => a.cardId === c.id)) ?? null;
 
@@ -43,7 +44,7 @@ export default function Facilitator() {
     const col = (g: Group) => {
       const [bg, ink] = COLORS[g];
       const items = cardsIn(g)
-        .map((a) => `<div style="background:#fffdf8;border:1px solid #e0d3bd;border-radius:8px;padding:7px 10px;margin-bottom:6px;font:500 13px/1.3 Georgia,serif;color:#241d12;">${esc(nameOf(a.cardId))}</div>`)
+        .map((a) => `<div style="background:#fffdf8;border:1px solid #e0d3bd;border-radius:8px;padding:7px 10px;margin-bottom:6px;color:#241d12;break-inside:avoid;"><div style="font:500 13px/1.3 Georgia,serif;">${esc(nameOf(a.cardId))}</div><div style="font:400 10.5px/1.3 -apple-system,system-ui,sans-serif;color:#6b5d4c;margin-top:2px;">${esc(descOf(a.cardId))}</div></div>`)
         .join("") || `<div style="color:#8a7a63;font-size:13px;">—</div>`;
       return `<div style="background:${bg};border-radius:12px;padding:12px;break-inside:avoid;">
         <div style="font:600 12px/1.2 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:${ink};margin-bottom:8px;">${GROUP_LABEL[g]}</div>${items}</div>`;

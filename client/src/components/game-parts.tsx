@@ -30,13 +30,14 @@ export function RoomBar({
   );
 }
 
-/** A service card in the warm "paper" style. */
-export function CardTile({ name, dragging, small, onPointerDown }: {
-  name: string; dragging?: boolean; small?: boolean; onPointerDown?: (e: React.PointerEvent) => void;
+/** A service card in the warm "paper" style — name with a small explanation under it. */
+export function CardTile({ name, description, dragging, small, onPointerDown }: {
+  name: string; description?: string; dragging?: boolean; small?: boolean; onPointerDown?: (e: React.PointerEvent) => void;
 }) {
   return (
     <div className={`pr-card ${dragging ? "is-dragging" : ""} ${small ? "small" : ""}`} onPointerDown={onPointerDown}>
       <span className="pr-card-name">{name}</span>
+      {description && <span className="pr-card-desc">{description}</span>}
     </div>
   );
 }
@@ -69,7 +70,7 @@ export function SortStage({ card, sorted, total, onAssign, readOnly = false, ass
     <div className="pr-stage">
       <p className="pr-progress">{sorted} of {total} sorted</p>
       <div className="pr-current">
-        {card ? <CardTile name={card.name} dragging={!!drag} onPointerDown={start} /> : <p className="tg-standing">All cards sorted.</p>}
+        {card ? <CardTile name={card.name} description={card.description} dragging={!!drag} onPointerDown={start} /> : <p className="tg-standing">All cards sorted.</p>}
       </div>
       <div className="pr-zones">
         {GROUPS.map((g) => {
@@ -89,7 +90,7 @@ export function SortStage({ card, sorted, total, onAssign, readOnly = false, ass
         })}
       </div>
       {drag && card && (
-        <div className="pr-ghost" style={{ left: drag.x, top: drag.y }}><CardTile name={card.name} /></div>
+        <div className="pr-ghost" style={{ left: drag.x, top: drag.y }}><CardTile name={card.name} description={card.description} /></div>
       )}
     </div>
   );
@@ -127,7 +128,7 @@ export function OverviewBoard({ assignments, onMove, readOnly = false }: {
           <div className="pr-col-head"><span>{GROUP_LABEL[g]}</span><span className="pr-col-count">{cardsIn(g).length}</span></div>
           <div className="pr-col-cards">
             {cardsIn(g).map((a) => (
-              <CardTile key={a.cardId} name={CARD_BY_ID[a.cardId]?.name ?? a.cardId} small dragging={drag?.cardId === a.cardId} onPointerDown={start(a.cardId)} />
+              <CardTile key={a.cardId} name={CARD_BY_ID[a.cardId]?.name ?? a.cardId} description={CARD_BY_ID[a.cardId]?.description} small dragging={drag?.cardId === a.cardId} onPointerDown={start(a.cardId)} />
             ))}
             {cardsIn(g).length === 0 && <p className="pr-col-empty">—</p>}
           </div>
@@ -135,7 +136,7 @@ export function OverviewBoard({ assignments, onMove, readOnly = false }: {
       ))}
       {drag && (
         <div className="pr-ghost" style={{ left: drag.x, top: drag.y }}>
-          <CardTile name={CARD_BY_ID[drag.cardId]?.name ?? drag.cardId} small />
+          <CardTile name={CARD_BY_ID[drag.cardId]?.name ?? drag.cardId} description={CARD_BY_ID[drag.cardId]?.description} small />
         </div>
       )}
     </div>
