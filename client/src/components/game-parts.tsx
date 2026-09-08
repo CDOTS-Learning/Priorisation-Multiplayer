@@ -1,7 +1,7 @@
 import { ArrowLeft, Check, Copy } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { Assignment } from "@shared/schema";
-import { CARD_BY_ID, GROUPS, GROUP_LABEL, type Group, type PriorityCard } from "@shared/content";
+import { CARD_BY_ID, GROUPS, GROUP_LABEL, GROUP_DESC, type Group, type PriorityCard } from "@shared/content";
 
 export function RoomBar({
   roleLabel, roomCode, onLeave, onCopy,
@@ -80,6 +80,7 @@ export function SortStage({ card, sorted, total, onAssign, readOnly = false, ass
               className={`pr-zone ${g} ${drag ? "armed" : ""}`}
               onClick={() => !readOnly && card && onAssign(g)}>
               <span className="pr-zone-label">{GROUP_LABEL[g]}</span>
+              <span className="pr-zone-desc">{GROUP_DESC[g]}</span>
               {placed.length > 0 && (
                 <div className="pr-zone-placed">
                   {placed.map((n) => <span key={n} className="pr-zone-chip">{n}</span>)}
@@ -125,7 +126,10 @@ export function OverviewBoard({ assignments, onMove, readOnly = false }: {
     <div className={`pr-overview ${readOnly ? "readonly" : ""}`}>
       {GROUPS.map((g) => (
         <div key={g} ref={(el) => (colRefs.current[g] = el)} className={`pr-col ${g} ${drag ? "armed" : ""}`}>
-          <div className="pr-col-head"><span>{GROUP_LABEL[g]}</span><span className="pr-col-count">{cardsIn(g).length}</span></div>
+          <div className="pr-col-head">
+            <div className="pr-col-head-top"><span>{GROUP_LABEL[g]}</span><span className="pr-col-count">{cardsIn(g).length}</span></div>
+            <span className="pr-col-desc">{GROUP_DESC[g]}</span>
+          </div>
           <div className="pr-col-cards">
             {cardsIn(g).map((a) => (
               <CardTile key={a.cardId} name={CARD_BY_ID[a.cardId]?.name ?? a.cardId} description={CARD_BY_ID[a.cardId]?.description} small dragging={drag?.cardId === a.cardId} onPointerDown={start(a.cardId)} />

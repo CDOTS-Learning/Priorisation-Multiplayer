@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { useRoute } from "wouter";
 import { useRoom } from "@/lib/useRoom";
 import { RoomBar, SortStage, OverviewBoard } from "@/components/game-parts";
-import { CARDS, FRAMING, GROUPS, GROUP_LABEL, CARD_BY_ID, type Group } from "@shared/content";
+import { CARDS, FRAMING, GROUPS, GROUP_LABEL, GROUP_DESC, CARD_BY_ID, type Group } from "@shared/content";
 import { printHtml, esc } from "@/lib/print";
 
 const COLORS: Record<Group, [string, string]> = {
@@ -47,7 +47,7 @@ export default function Facilitator() {
         .map((a) => `<div style="background:#fffdf8;border:1px solid #e0d3bd;border-radius:8px;padding:7px 10px;margin-bottom:6px;color:#241d12;break-inside:avoid;"><div style="font:500 13px/1.3 Georgia,serif;">${esc(nameOf(a.cardId))}</div><div style="font:400 10.5px/1.3 -apple-system,system-ui,sans-serif;color:#6b5d4c;margin-top:2px;">${esc(descOf(a.cardId))}</div></div>`)
         .join("") || `<div style="color:#8a7a63;font-size:13px;">—</div>`;
       return `<div style="background:${bg};border-radius:12px;padding:12px;break-inside:avoid;">
-        <div style="font:600 12px/1.2 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:${ink};margin-bottom:8px;">${GROUP_LABEL[g]}</div>${items}</div>`;
+        <div style="margin-bottom:8px;"><div style="font:600 12px/1.2 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:${ink};">${GROUP_LABEL[g]}</div><div style="font:400 10px/1.3 -apple-system,system-ui,sans-serif;color:${ink};opacity:.75;margin-top:3px;">${esc(GROUP_DESC[g])}</div></div>${items}</div>`;
     };
     return `<p class="k">Prioritization</p><h1>Yes · Maybe · No</h1>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px;">${GROUPS.map(col).join("")}</div>

@@ -24,6 +24,18 @@ export const CARDS: PriorityCard[] = [
   { id: "reflection", name: "Reflection Activities", description: "Structured opportunities to think about and apply learning." },
   { id: "quizzes", name: "Knowledge Checks & Quizzes", description: "Short assessments to test understanding." },
   { id: "jobaids", name: "Job Aids/Guides", description: "Performance support resources used while working." },
+  { id: "templates", name: "Templates", description: "Ready-to-use resources that help complete tasks." },
+  { id: "quickref", name: "Quick Reference Guides/Cheat sheets", description: "Condensed information for fast consultation." },
+  { id: "toolkit", name: "Resource Toolkit", description: "A collection of learning resources, tools, and references." },
+  { id: "animated", name: "Animated Videos", description: "Learning content delivered through animation." },
+  { id: "cgi", name: "CGI Videos", description: "Computer-generated videos that illustrate concepts or processes." },
+  { id: "highendvideo", name: "High-End Video Production", description: "Professionally produced videos with scripted content." },
+  { id: "gamification", name: "Gamification Elements", description: "Game-like features used to increase engagement and motivation." },
+  { id: "community", name: "Community of Practice", description: "A group that shares knowledge and learns from one another." },
+  { id: "extfacilitation", name: "External Facilitation", description: "Learning led by an external subject matter expert or facilitator." },
+  { id: "certificate", name: "Certificate/Badge", description: "Formal recognition of learning completion or achievement." },
+  { id: "finalexam", name: "Final examination", description: "Comprehensive assessment conducted at the end of a programme." },
+  { id: "simulation", name: "Simulation", description: "Step-by-step demonstration of a process or task." },
 ];
 
 export const CARD_BY_ID: Record<string, PriorityCard> = Object.fromEntries(CARDS.map((c) => [c.id, c]));
@@ -31,3 +43,8 @@ export const CARD_BY_ID: Record<string, PriorityCard> = Object.fromEntries(CARDS
 export const GROUPS = ["yes", "maybe", "no"] as const;
 export type Group = (typeof GROUPS)[number];
 export const GROUP_LABEL: Record<Group, string> = { yes: "Yes", maybe: "Maybe", no: "No" };
+export const GROUP_DESC: Record<Group, string> = {
+  yes: "Essential to the success of this learning initiative",
+  maybe: "Worth exploring further or dependent on resources and stakeholder input",
+  no: "Not aligned with our audience, objectives, or constraints",
+};
