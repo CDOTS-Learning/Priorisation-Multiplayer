@@ -100,16 +100,12 @@ export default function Facilitator() {
         <div className="tg-round-line"><span className="tg-eyebrow">Live · sorting ({gameState.assignments.length} of {gameState.totalCards})</span></div>
         <h1 className="tg-topic" style={{ marginBottom: ".5rem" }}>Prioritize together</h1>
         <p className="tg-standing" style={{ marginBottom: "1rem" }}>Driving now: <strong>{driver}</strong>. {isController ? "You have the pen." : ""}</p>
-        {isController ? (
-          <SortStage card={nextCard} sorted={gameState.assignments.length} total={gameState.totalCards}
-            assignments={gameState.assignments}
-            onAssign={(g: Group) => nextCard && room.assign(nextCard.id, g)} />
-        ) : (
-          <>
-            <OverviewBoard assignments={gameState.assignments} onMove={() => {}} readOnly />
-            <div className="tg-controls"><div className="buttons">{takeControlBtn}</div></div>
-          </>
-        )}
+        {/* The same stage either way — the facilitator always sees the card being
+            sorted, and only loses the ability to move it when someone else drives. */}
+        <SortStage card={nextCard} sorted={gameState.assignments.length} total={gameState.totalCards}
+          assignments={gameState.assignments}
+          onAssign={(g: Group) => nextCard && room.assign(nextCard.id, g)} readOnly={!isController} />
+        {!isController && <div className="tg-controls"><div className="buttons">{takeControlBtn}</div></div>}
       </>
     );
   }
