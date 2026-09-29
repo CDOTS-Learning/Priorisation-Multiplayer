@@ -4,8 +4,8 @@ A facilitated sorting exercise for **2–5 players plus a facilitator**. The gro
 sorts 24 learning services into **Yes / Maybe / No** together — one person holds
 the pen at a time, everyone else watches live and can take over.
 
-- **Live:** https://priorisation-multiplayer.onrender.com
-- **Single-player version:** [`Priorisation-Singleplayer`](https://github.com/Helti2636/Priorisation-Singleplayer) — same exercise for one participant
+- **Live:** https://priorisation-multiplayer-nnsm.onrender.com
+- **Single-player version:** [`Priorisation-Singleplayer`](https://github.com/CDOTS-Learning/Priorisation-Singleplayer) — same exercise for one participant
 
 ## How a session runs
 
@@ -68,8 +68,12 @@ Render Web Service, runtime **Node**:
 - No environment variables, no database.
 
 Every push to `main` triggers a new deployment automatically (about 3 minutes).
-See `RENDER-SETUP.md` in this repo — the hosting still needs to be moved into
-the team's own account.
+The service runs on the team's own Render account — see `RENDER-SETUP.md` for
+how it is set up and what to do when a deployment misbehaves.
+
+> **An older copy may still answer at https://priorisation-multiplayer.onrender.com.**
+> That one belongs to the previous maintainer's personal account, receives no
+> updates and will disappear. Always share the link at the top of this page.
 
 ## Good to know
 
